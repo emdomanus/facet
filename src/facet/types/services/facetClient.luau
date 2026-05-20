@@ -8,7 +8,8 @@ local FacetManagerTypes = require(script.Parent.Parent.managers.facetManager)
 export type Component3DConfig = Component3DTypes.Component3DConfig
 export type Component3DHandle = Component3DTypes.Component3DHandle
 export type FacetManagerHandle = FacetManagerTypes.FacetManagerHandle
-export type FacetManagerComplete = FacetManagerTypes.FacetManagerComplete
+
+type FacetManagerComplete = FacetManagerTypes.FacetManagerComplete
 
 export type FacetClientHandle = {
 	createComponent: (self: FacetClientHandle, config: Component3DConfig) -> Component3DHandle,

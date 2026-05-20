@@ -10,8 +10,6 @@ export type Component3DComplete = Component3DTypes.Component3DComplete
 
 export type FacetManagerHandle = {
 	createComponent: (self: FacetManagerHandle, config: Component3DConfig) -> Component3DHandle,
-	register: (self: FacetManagerHandle, component: Component3DComplete) -> (),
-	unregister: (self: FacetManagerHandle, component: Component3DComplete) -> (),
 	setAutoSteppingEnabled: (self: FacetManagerHandle, enabled: boolean) -> (),
 	isAutoSteppingEnabled: (self: FacetManagerHandle) -> boolean,
 	startAutoStepping: (self: FacetManagerHandle) -> (),
@@ -25,6 +23,8 @@ export type FacetManagerComplete = FacetManagerHandle & {
 	_renderConnection: RBXScriptConnection?,
 	_autoSteppingEnabled: boolean,
 
+	register: (self: FacetManagerComplete, component: Component3DComplete) -> (),
+	unregister: (self: FacetManagerComplete, component: Component3DComplete) -> (),
 	_bind: (self: FacetManagerComplete) -> (),
 	_unbind: (self: FacetManagerComplete) -> (),
 	_syncRenderBinding: (self: FacetManagerComplete) -> (),

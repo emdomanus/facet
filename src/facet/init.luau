@@ -4,19 +4,25 @@
 
 local FacetClient = require(script.services.facetClient.client.facetClientClient)
 local Math = require(script.math)
+local Types = require(script.types)
+
+type Component3DConfig = Types.Component3DConfig
+type Component3DHandle = Types.Component3DHandle
+type FacetClientHandle = Types.FacetClientHandle
+type FacetManagerHandle = Types.FacetManagerHandle
 
 local client = FacetClient.new()
 
 return {
-	client = client,
+	client = client :: FacetClientHandle,
 	math = Math,
 
-	createComponent = function(config)
+	createComponent = function(config: Component3DConfig): Component3DHandle
 		return client:createComponent(config)
 	end,
 
-	getManager = function()
-		return client:getManager()
+	getManager = function(): FacetManagerHandle
+		return client:getManager() :: FacetManagerHandle
 	end,
 
 	setAutoSteppingEnabled = function(enabled: boolean)

@@ -19,6 +19,8 @@ export type FacingConfig = MathTypes.FacingConfig
 export type PivotConfig = MathTypes.PivotConfig
 export type ShadowConfig = MathTypes.ShadowConfig
 export type ShadowSolveResult = MathTypes.ShadowSolveResult
+export type ShadowChangedCallback = Component3DTypes.ShadowChangedCallback
+export type Disconnect = Component3DTypes.Disconnect
 
 export type Component3DConfig = Component3DTypes.Component3DConfig
 export type Component3DHandle = Component3DTypes.Component3DHandle

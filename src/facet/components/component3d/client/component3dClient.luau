@@ -7,11 +7,14 @@ local Types = require(script.Parent.Parent.Parent.Parent.types.components.compon
 
 type Component3DConfig = Types.Component3DConfig
 type Component3DComplete = Types.Component3DComplete
+type Disconnect = Types.Disconnect
+type ShadowChangedCallback = Types.ShadowChangedCallback
 type ShadowSolveResult = Types.ShadowSolveResult
 
 local DEFAULT_DEPTH = 8
 local SOCKET_THICKNESS = 0.05
 local MIN_STUD_SIZE = 0.01
+local SHADOW_EPSILON = 1e-4
 local DEFAULT_SHADOW: ShadowSolveResult = {
 	offset = Vector2.zero,
 	direction = Vector2.zero,
@@ -80,6 +83,12 @@ local function anchorCFrameToScreenPoint(
 	return CFrame.fromMatrix(centerPosition, cframe.RightVector, cframe.UpVector, -cframe.LookVector)
 end
 
+local function shadowsEqual(a: ShadowSolveResult, b: ShadowSolveResult): boolean
+	return a.offset == b.offset
+		and a.direction == b.direction
+		and math.abs(a.strength - b.strength) <= SHADOW_EPSILON
+end
+
 function Component3D.new(config: Component3DConfig, manager: any?): Component3DComplete
 	local name = config.name or "FacetComponent"
 	local part = createPart(name)
@@ -96,6 +105,7 @@ function Component3D.new(config: Component3DConfig, manager: any?): Component3DC
 	self._config = config
 	self._enabled = false
 	self._shadow = DEFAULT_SHADOW
+	self._shadowChangedCallbacks = {}
 	self:_setParent(config.parent)
 	return self
 end
@@ -110,6 +120,27 @@ end
 
 function Component3D.getShadow(self: Component3DComplete): ShadowSolveResult
 	return self._shadow
+end
+
+function Component3D.bindToShadowChanged(
+	self: Component3DComplete,
+	callback: ShadowChangedCallback,
+	runInitially: boolean?
+): Disconnect
+	self._shadowChangedCallbacks[callback] = true
+	local disconnected = false
+
+	if runInitially == true then
+		callback(self._shadow)
+	end
+
+	return function()
+		if disconnected then
+			return
+		end
+		disconnected = true
+		self._shadowChangedCallbacks[callback] = nil
+	end
 end
 
 function Component3D.setConfig(self: Component3DComplete, config: Component3DConfig)
@@ -147,6 +178,21 @@ function Component3D._setParent(self: Component3DComplete, parent: Instance?)
 	self._part.Parent = parent
 end
 
+function Component3D._notifyShadowChanged(self: Component3DComplete)
+	for callback in self._shadowChangedCallbacks do
+		callback(self._shadow)
+	end
+end
+
+function Component3D._setShadow(self: Component3DComplete, shadow: ShadowSolveResult)
+	if shadowsEqual(self._shadow, shadow) then
+		return
+	end
+
+	self._shadow = shadow
+	self:_notifyShadowChanged()
+end
+
 function Component3D._update(self: Component3DComplete, camera: Camera?)
 	if not camera or not self._enabled then
 		return
@@ -182,11 +228,12 @@ function Component3D._update(self: Component3DComplete, camera: Camera?)
 	self._part.Size = finalSize
 	self._part.CFrame = cframe
 	self._surfaceGui.CanvasSize = canvasSize
-	self._shadow = Math.shadow.solve(camera, cframe, self._part.Size, canvasSize, config.shadow)
+	self:_setShadow(Math.shadow.solve(camera, cframe, self._part.Size, canvasSize, config.shadow))
 end
 
 function Component3D.deconstruct(self: Component3DComplete)
 	self:setEnabled(false)
+	table.clear(self._shadowChangedCallbacks)
 	self._surfaceGui:Destroy()
 	self._part:Destroy()
 end

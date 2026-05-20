@@ -16,5 +16,7 @@ export type FacingMode = Types.FacingMode
 export type PivotConfig = Types.PivotConfig
 export type ShadowConfig = Types.ShadowConfig
 export type ShadowSolveResult = Types.ShadowSolveResult
+export type ShadowChangedCallback = Types.ShadowChangedCallback
+export type Disconnect = Types.Disconnect
 
 return Facet

@@ -1,0 +1,12 @@
+{
+  "name": "facet",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Facet": {
+        "$path": "src"
+      }
+    }
+  }
+}

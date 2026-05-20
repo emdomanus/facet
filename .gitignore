@@ -1,0 +1,8 @@
+Packages/
+*.rbxm
+*.rbxmx
+*.rbxl
+*.rbxlx
+*.tar.gz
+sourcemap.json
+dev-sourcemap.json

@@ -1,0 +1,21 @@
+{
+  "name": "facet-dev",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Facet": {
+        "$path": "src"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "FacetDev": {
+          "$path": "dev/client"
+        }
+      }
+    }
+  }
+}

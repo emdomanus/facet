@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "JohnnyMorganz.luau-lsp"
+  ],
+  "unwantedRecommendations": [
+    "sumneko.lua",
+    "tangzx.emmylua",
+    "Kampfkarren.selene-vscode"
+  ]
+}
+

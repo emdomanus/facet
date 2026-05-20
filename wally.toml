@@ -1,0 +1,25 @@
+[package]
+name = "emdomanus/facet"
+description = "Client-side 3D UI surface primitives for Roblox."
+version = "0.1.0"
+license = "MIT"
+authors = ["emdomanus"]
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+include = ["src", "wally.toml", "default.project.json", "README.md", "LICENSE"]
+exclude = [
+	"Packages",
+	"Packages/**",
+	"scripts",
+	"scripts/**",
+	".vscode",
+	".vscode/**",
+	"dev",
+	"dev/**",
+	"dev.project.json",
+	"sourcemap.json",
+	"*.rbxm",
+	"*.rbxmx",
+]
+
+[dependencies]

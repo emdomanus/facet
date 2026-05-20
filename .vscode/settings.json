@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.luau": "luau"
+  },
+  "Lua.diagnostics.enable": false,
+  "Lua.workspace.checkThirdParty": false,
+  "selene.selenePath": "C:\\Users\\edwar\\Documents\\RobloxProjects\\plinth\\scripts\\selene-disabled.cmd",
+  "selene.run": "onSave",
+  "luau-lsp.sourcemap.enabled": true,
+  "luau-lsp.sourcemap.rojoProjectFile": "default.project.json",
+  "luau-lsp.sourcemap.sourcemapFile": "sourcemap.json"
+}
+

@@ -39,13 +39,6 @@ local function createPart(name: string): Part
 	return part
 end
 
-local function getSurfaceZOffset(config: Component3DConfig): number
-	if config.displayOrder ~= nil then
-		return config.displayOrder
-	end
-	return config.zOffset or 0
-end
-
 local function createSurfaceGui(name: string, part: Part, config: Component3DConfig): SurfaceGui
 	local surfaceGui = Instance.new("SurfaceGui")
 	surfaceGui.Name = name
@@ -57,7 +50,7 @@ local function createSurfaceGui(name: string, part: Part, config: Component3DCon
 	surfaceGui.LightInfluence = 0
 	surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.FixedSize
 	surfaceGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	surfaceGui.ZOffset = getSurfaceZOffset(config)
+	surfaceGui.ZOffset = config.zOffset or 0
 	return surfaceGui
 end
 
@@ -153,7 +146,7 @@ end
 function Component3D.setConfig(self: Component3DComplete, config: Component3DConfig)
 	self._config = config
 	self._surfaceGui.Name = config.name or self._surfaceGui.Name
-	self._surfaceGui.ZOffset = getSurfaceZOffset(config)
+	self._surfaceGui.ZOffset = config.zOffset or 0
 	self._surfaceGui.Parent = config.guiParent
 	self:_setParent(config.parent)
 end

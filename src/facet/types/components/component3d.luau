@@ -19,6 +19,7 @@ export type Component3DConfig = {
 	screenRect: ScreenRectConfig,
 	depth: number?,
 	canvasSize: Vector2?,
+	displayOrder: number?,
 	zOffset: number?,
 	visible: boolean?,
 	facing: FacingConfig?,
